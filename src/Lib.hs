@@ -103,6 +103,7 @@ sign (pri, d, g, p, a, n) = Point r s
         r = x p1 -- todo check not equal to zero
         s = (modinv k n) * mod (d + mod (pri * r) n) n -- todo check not equal to zero
 
+-- verify a ec signature
 verify :: (Point, Integer, Point, Point, Integer, Integer, Integer) -> Bool
 verify (pub, d, sig, g, n, p, a)
     | r < 1 || r > n - 1 = False
