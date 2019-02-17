@@ -13,6 +13,8 @@ module Lib (
 ) where
 
 import Data.Bits
+import Data.Bool
+
 
 -- a simple data class to store (x, y) pairs
 data Point = Point {
@@ -92,6 +94,7 @@ pointMultiply (r, n, p, q, a)
     where
         nm = shiftR n 1
 
+-- signs data with private ket
 sign :: (Integer, Integer, Point, Integer, Integer, Integer) -> Point
 sign (pri, d, g, p, a, n) = Point r s
     where
@@ -99,4 +102,18 @@ sign (pri, d, g, p, a, n) = Point r s
         p1 = pointMultiply ((identify p), k, p, g, a)
         r = x p1 -- todo check not equal to zero
         s = (modinv k n) * mod (d + mod (pri * r) n) n -- todo check not equal to zero
+
+verify :: (Point, Integer, Point, Point, Integer, Integer, Integer) -> Bool
+verify (pub, d, sig, g, n, p, a)
+    | r < 1 || r > n - 1 = False
+    | s < 1 || s > n - 1 = False
+    | otherwise = r == v
+    where
+        r = x sig
+        s = y sig
+        c = modinv s n
+        u1 = mod (d * c) n
+        u2 = mod (r * c) n
+        xy = add ((pointMultiply ((identify p), u1, p, g, a)), (pointMultiply ((identify p), u1, p, pub, a)), p, a)
+        v = mod (x xy) n
 
