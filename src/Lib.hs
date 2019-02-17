@@ -13,7 +13,6 @@ module Lib (
 ) where
 
 import Data.Bits
-import System.Random
 
 -- a simple data class to store (x, y) pairs
 data Point = Point {
@@ -93,5 +92,11 @@ pointMultiply (r, n, p, q, a)
     where
         nm = shiftR n 1
 
--- sign :: (Integer, Integer, Point, Integer, Integer)
--- sign (pri, d, g, p, a)
+sign :: (Integer, Integer, Point, Integer, Integer, Integer) -> Point
+sign (pri, d, g, p, a, n) = Point r s
+    where
+        k = mod d n
+        p1 = pointMultiply ((identify p), k, p, g, a)
+        r = x p1 -- todo check not equal to zero
+        s = (modinv k n) * mod (d + mod (pri * r) n) n -- todo check not equal to zero
+
