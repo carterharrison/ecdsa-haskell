@@ -1,4 +1,5 @@
 .idea
 .stack-work/
+.DS_Store
 ecdsa.cabal
 *~
