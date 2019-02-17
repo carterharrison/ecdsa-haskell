@@ -1,15 +1,16 @@
-module Lib (Point(..),
-            xgcd,
-            modinv,
-            multiply,
-            divide,
-            tangent,
-            identify,
-            dot,
-            add,
-            double,
-            pointMultiply
-          ) where
+module Lib (
+    Point(..),
+    xgcd,
+    modinv,
+    multiply,
+    divide,
+    tangent,
+    identify,
+    dot,
+    add,
+    double,
+    pointMultiply
+) where
 
 import Data.Bits
 import System.Random
